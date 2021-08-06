@@ -11,7 +11,7 @@ BODY = '''
   <s:Body>
     <u:AddURIToQueue xmlns:u="urn:schemas-upnp-org:service:AVTransport:1">
       <InstanceID>0</InstanceID>
-      <EnqueuedURI>https://ia902508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3</EnqueuedURI>
+      <EnqueuedURI>https://bigsoundbank.com/UPLOAD/mp3/2365.mp3</EnqueuedURI>
       <EnqueuedURIMetaData></EnqueuedURIMetaData>
       <DesiredFirstTrackNumberEnqueued></DesiredFirstTrackNumberEnqueued>
       <EnqueueAsNext>true</EnqueueAsNext>

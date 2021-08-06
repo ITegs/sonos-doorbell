@@ -2,7 +2,7 @@
 
 import requests
 
-IP = '192.168.178.33'
+IP = '192.168.178.29'
 ACTION = '"urn:schemas-upnp-org:service:AVTransport:1#Play"'
 ENDPOINT = '/MediaRenderer/AVTransport/Control'
 BODY = '''
