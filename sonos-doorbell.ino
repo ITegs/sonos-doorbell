@@ -29,14 +29,18 @@ void setup()
 
 void loop()
 {
-    setAVTransportURI();
-    play();
+    setAVTransportURI("192.168.178.28");
+    setAVTransportURI("192.168.178.29");
+    setAVTransportURI("192.168.178.33");
+    play("192.168.178.28");
+    play("192.168.178.29");
+    play("192.168.178.33");
     delay(30000);
 }
 
-void setAVTransportURI(){
+void setAVTransportURI(String IP){
     HTTPClient http;
-    http.begin("http://192.168.178.28:1400/MediaRenderer/AVTransport/Control");
+    http.begin("http://"+IP+":1400/MediaRenderer/AVTransport/Control");
     http.addHeader("Content-Type", "text/xml");
     http.addHeader("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#SetAVTransportURI\"");
     int httpCode = http.POST(addtoQueue_Body);
@@ -51,9 +55,9 @@ void setAVTransportURI(){
     }
 }
 
-void play(){
+void play(String IP){
     HTTPClient http;
-    http.begin("http://192.168.178.28:1400/MediaRenderer/AVTransport/Control");
+    http.begin("http://"+IP+":1400/MediaRenderer/AVTransport/Control");
     http.addHeader("Content-Type", "text/xml");
     http.addHeader("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#Play\"");
     int httpCode = http.POST(Play_Body);
