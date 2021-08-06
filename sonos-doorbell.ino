@@ -5,7 +5,8 @@
 const char *ssid = ssid_private;         //"YOUR SSID HERE"
 const char *password = password_private; //"YOUR PASSWORD HERE"
 
-char *query = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding\"/><s:Body><u:AddURIToQueue xmlns:u=\" urn : schemas - upnp - org : service : AVTransport : 1 \"><InstanceID>0</InstanceID><EnqueuedURI>https://bigsoundbank.com/UPLOAD/mp3/2365.mp3</EnqueuedURI><EnqueuedURIMetaData></EnqueuedURIMetaData><DesiredFirstTrackNumberEnqueued></DesiredFirstTrackNumberEnqueued><EnqueueAsNext>true</EnqueueAsNext><FirstTrackNumberEnqueued></FirstTrackNumberEnqueued><NumTracksAdded></NumTracksAdded><NewQueueLength></NewQueueLength></u:AddURIToQueue></s:Body></s:Envelope>";
+char *addtoQueue_Body = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><s:Body><u:AddURIToQueue xmlns:u=\"urn:schemas-upnp-org:service:AVTransport:1\"><InstanceID>0</InstanceID>\n<EnqueuedURI>https://bigsoundbank.com/UPLOAD/mp3/2365.mp3</EnqueuedURI><EnqueuedURIMetaData></EnqueuedURIMetaData><DesiredFirstTrackNumberEnqueued></DesiredFirstTrackNumberEnqueued><EnqueueAsNext>true</EnqueueAsNext><FirstTrackNumberEnqueued></FirstTrackNumberEnqueued><NumTracksAdded></NumTracksAdded><NewQueueLength></NewQueueLength></u:AddURIToQueue></s:Body></s:Envelope>";
+char *Play_Body = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\" s:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\"><s:Body><u:AddURIToQueue xmlns:u=\"urn:schemas-upnp-org:service:AVTransport:1\"><InstanceID>0</InstanceID>\n<EnqueuedURI>https://bigsoundbank.com/UPLOAD/mp3/2365.mp3</EnqueuedURI><EnqueuedURIMetaData></EnqueuedURIMetaData><DesiredFirstTrackNumberEnqueued></DesiredFirstTrackNumberEnqueued><EnqueueAsNext>true</EnqueueAsNext><FirstTrackNumberEnqueued></FirstTrackNumberEnqueued><NumTracksAdded></NumTracksAdded><NewQueueLength></NewQueueLength></u:AddURIToQueue></s:Body></s:Envelope>";
 
 void initWiFi()
 {
@@ -31,7 +32,7 @@ void loop()
     if (WiFi.status() == WL_CONNECTED)
     {
         HTTPClient http;
-        http.begin("http://192.168.178.33:1400/MediaRenderer/AVTransport/Control");
+        http.begin("http://192.168.178.28:1400/MediaRenderer/AVTransport/Control");
         http.addHeader("Content-Type", "text/xml");
         http.addHeader("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#AddURIToQueue\"");
         int httpCode = http.POST(query);
@@ -45,5 +46,22 @@ void loop()
             Serial.println("ERROR!");
         }
     }
-    delay(300000);
+    delay(5000);
+}
+
+void addtoQueue(){
+    HTTPClient http;
+        http.begin("http://192.168.178.28:1400/MediaRenderer/AVTransport/Control");
+        http.addHeader("Content-Type", "text/xml");
+        http.addHeader("SOAPACTION", "\"urn:schemas-upnp-org:service:AVTransport:1#AddURIToQueue\"");
+        int httpCode = http.POST(addtoQueue_Body);
+        if (httpCode > 0)
+        {
+            String payload = http.getString();
+            Serial.println(httpCode);
+        }
+        else
+        {
+            Serial.println("ERROR!");
+        }
 }

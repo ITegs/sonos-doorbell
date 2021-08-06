@@ -2,7 +2,7 @@
 
 import requests
 
-IP = '192.168.178.33'
+IP = '192.168.178.28'
 ACTION = '"urn:schemas-upnp-org:service:AVTransport:1#AddURIToQueue"'
 ENDPOINT = '/MediaRenderer/AVTransport/Control'
 BODY = '''
